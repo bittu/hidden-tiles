@@ -3,20 +3,188 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+body { background-image: url(http://subtlepatterns.com/patterns/ricepaper.png) }
 
+	
+	.panel {
+			float: left;
+			width: 40px;
+			height: 40px;
+			margin: 5px;
+			position: relative;
+			font-size: .8em;
+			
+			-webkit-perspective: 600px;
+			-moz-perspective: 600px;
+		}
+		/* -- make sure to declare a default for every property that you want animated -- */
+		/* -- general styles, including Y axis rotation -- */
+		.panel .front {
+			float: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 900;
+			width: inherit;
+			height: inherit;
+			border: 1px solid #ccc;
+			background: #6b7077;
+			text-align: center;
 
+			-moz-box-shadow: 0 1px 5px rgba(0,0,0,0.9);
+			-webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.9);
+			box-shadow: 0 1px 5px rgba(0,0,0,0.9);
 
+			-webkit-transform: rotateX(0deg) rotateY(0deg);
+			-webkit-transform-style: preserve-3d;
+			-webkit-backface-visibility: hidden;
 
+			-moz-transform: rotateX(0deg) rotateY(0deg);
+			-moz-transform-style: preserve-3d;
+			-moz-backface-visibility: hidden;
 
+			/* -- transition is the magic sauce for animation -- */
+			-o-transition: all .4s ease-in-out;
+			-ms-transition: all .4s ease-in-out;
+			-moz-transition: all .4s ease-in-out;
+			-webkit-transition: all .4s ease-in-out;
+			transition: all .4s ease-in-out;
+		}
+		.panel.flip .front {
+			z-index: 900;
+			border-color: #eee;
+			background: #333;
 
+			-webkit-transform: rotateY(180deg);
+			-moz-transform: rotateY(180deg);
+			
+			-moz-box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+			-webkit-box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+			box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+		}
+		
+		.panel .back {
+			float: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 800;
+			width: inherit;
+			height: inherit;
+			border: 1px solid #ccc;
+			background: #333;
+			text-shadow: 1px  1px 1px rgba(0,0,0,0.6); 
+			
+			-webkit-transform: rotateY(-180deg);
+			-webkit-transform-style: preserve-3d;
+			-webkit-backface-visibility: hidden;
 
+			-moz-transform: rotateY(-180deg);
+			-moz-transform-style: preserve-3d;
+			-moz-backface-visibility: hidden;
 
+			/* -- transition is the magic sauce for animation -- */
+			-o-transition: all .4s ease-in-out;
+			-ms-transition: all .4s ease-in-out;
+			-moz-transition: all .4s ease-in-out;
+			-webkit-transition: all .4s ease-in-out;
+			transition: all .4s ease-in-out;
+		}
+		
+		.panel.flip .back {
+			z-index: 1000;
+			background: #80868d;
 
+			-webkit-transform: rotateX(0deg) rotateY(0deg);
+			-moz-transform: rotateX(0deg) rotateY(0deg);
 
+			box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+			-moz-box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+			-webkit-box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+		}
+		
+		 i {
+			font-size: 30px;
+			color: whitesmoke;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -15px 0 0 -6px;
+		}
+		
+		.dissolve {
+			zoom: 1;
+			filter: alpha(opacity=50);
+			opacity: 0;   
+			-webkit-transform: scale(0);
+			-webkit-transition-property: scale,opacity;
+			-webkit-transition-duration: 0.5s;
+			-webkit-transition-timing-function: ease-in;
+		}
 
+#tilesGame {
+	margin-left: 50px;
+	margin-right: 110px;
+}
+.tilecontainer {
+	margin: 30px;
+	width: 200px;
+}
 
+.icon-facebook {
+	color: #09c;
+}
 
+.wrapper-dropdown {
+	position: relative;
+	width: 200px;
+	padding: 10px;
+	margin: 0 auto;
+	background: #9BC7DE;
+	color: white;
+	outline: none;
+	cursor: pointer;
+	font-weight: bold;
+}
 
+.wrapper {
+	position: relative;
+}
 
+.cd-dropdown ul {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+}
 
+.cd-dropdown > span,
+.cd-dropdown ul li {
+	box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
 
+.cd-dropdown ul li {
+	position: absolute;
+	width: 100%;
+	pointer-events: none;
+}
+
+.cd-active.cd-dropdown > span {
+	color: #e66b20;
+}
+
+.cd-active.cd-dropdown ul li {
+	pointer-events: auto;
+}
+
+.cd-active.cd-dropdown ul li span {
+	-webkit-transition: all 0.2s linear 0s;
+	-moz-transition: all 0.2s linear 0s;
+	-ms-transition: all 0.2s linear 0s;
+	-o-transition: all 0.2s linear 0s;
+	transition: all 0.2s linear 0s;
+}
+
+.cd-active.cd-dropdown ul li span:hover {
+	background: #e66b20;
+	color: #fff;
+}
