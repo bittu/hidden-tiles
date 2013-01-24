@@ -20,5 +20,9 @@ Game.THEMETEXT = "Text";
 $(function() {
 	
 	new Game.GameView();
+
+	$("#theme").dropdown( {
+					gutter : 5
+				} );
 	
 });
