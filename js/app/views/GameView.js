@@ -13,13 +13,10 @@ $(function( $ ) {
 
 		startButtonTemplate: _.template( $('#startButtonTemplate').html() ),
 
-		revealButtonTemplate: _.template( $('#revealButtonTemplate').html() ),
-
 		optionsTemplate: _.template( $('#optionsTemplate').html() ),
 		
 		events: {
 			'click #start': 'startGame',
-			'click #reveal': 'revealTiles',
 			'change input[name=level]': 'changeLevel',
 			'change input[name=theme]': 'changeTheme',
 			'click .panel': 'flipTile'
@@ -27,36 +24,40 @@ $(function( $ ) {
 		
 		initialize: function() {
 			_.bindAll(this);
+			this.$layerContainer = this.$("#layerContainer");
 			this.$tilesContainer = this.$("#tilesContainer");
 			this.$startDiv = this.$("#startDiv");
-			this.$revealDiv = this.$("#revealDiv");
 			this.$options = this.$("#options");
+			this.$gameOverLayer = this.$("#gameOverLayer");
 						
 			this.render();
 		},
 		
 		render: function() {			
 
+			this.$gameOverLayer.hide();
+			this.$tilesContainer.show();
+
 			this.renderStartButton();
-			this.renderRevealButton();
 			this.$options.html(this.optionsTemplate(this.model.toJSON()));
 			$( '#level' ).dropdown( {
-					gutter : 5,
-					delay : 100,
-					random : true,
-					themeClass: "level"
-				} );	
-				$( '#theme' ).dropdown( {
-					gutter : 5,
-					delay : 40,
-					rotated : 'left',
-					themeClass: "theme"
-				} );
+				gutter : 5,
+				delay : 100,
+				random : true,
+				themeClass: "level"
+			} );
+			$( '#theme' ).dropdown( {
+				gutter : 5,
+				delay : 40,
+				rotated : 'left',
+				themeClass: "theme"
+			} );
 			var level = this.model.get("Level");
 			var size = this.model.get("GameSizes")[level];
 			var containerSize = this.model.get("ContainerSizes")[level];
 			var noOfTiles = size * size;
-			//this.$tilesContainer.css({width : containerSize});
+			this.$tilesContainer.css({width : containerSize});
+			this.$layerContainer.height(containerSize);
 			var tilesContainerHTML = "";
 			var theme = this.model.get("Theme");
 			var themeData = this.model.get("ThemeData")[theme];
@@ -72,10 +73,9 @@ $(function( $ ) {
 
 			tilesContainerArray = Game.pickRandom(tilesContainerArray);			
 
-			this.$tilesContainer.html($("<div/>", {"style": "width:"+containerSize}).html(tilesContainerArray.join('')));
+			this.$tilesContainer.html(tilesContainerArray.join(''));
 
 			this.$start = this.$("#start");
-			this.$reveal = this.$("#reveal");
 			this.$clicks = this.$("#clicks");
 			this.$timer = this.$("#timer");
 			this.$pairs = this.$("#pairs");
@@ -88,48 +88,49 @@ $(function( $ ) {
 			this.$startDiv.html(this.startButtonTemplate(this.model.toJSON()));
 		},
 
-		renderRevealButton: function() {
-			this.$revealDiv.html(this.revealButtonTemplate(this.model.toJSON()));
-		},
-		
 		startGame: function() {
-			if(this.model.get("GameStatus") === Game.STOPPED) {
-				this.resetGame();
-			}
-			else {
+			var GameStatus = this.model.get("GameStatus");
+			
+			if(GameStatus === Game.READY){
 				this.model.set({GameStatus: Game.RUNNING});
 				this.renderStartButton();
-				this.renderRevealButton();
+				Game.Timer.start();
 			}
-			
-			Game.Timer.reset();
-			Game.Timer.start();
+			else if(GameStatus === Game.RUNNING) {
+				this.revealTiles();
+			}
+			else if(GameStatus === Game.STOPPED || GameStatus === Game.GAMEOVER) {
+				this.resetGame();
+				Game.Timer.start();
+			}			
 		},
 		
 		resetGame: function() {
 			this.model.set(this.model.defaults);
-			this.model.set({GameStatus: Game.RUNNING});
+			this.model.set({GameStatus: Game.RUNNING, 
+							Level: parseInt(this.$level.val()),
+							Theme: this.$theme.val()});
 			this.render();
+			Game.Timer.reset();
 		},
 		
 		revealTiles: function() {
-			this.model.set({RevealStatus: Game.REVEALED, GameStatus: Game.STOPPED});
+			this.model.set({GameStatus: Game.STOPPED});
 			this.renderStartButton();
-			this.renderRevealButton();
 			this.$panel.addClass("flip");
 			Game.Timer.stop();
 		},
 		
 		changeLevel: function(event) {
 			this.model.set({Level: parseInt(this.$level.val())});
-			this.model.set({GameStatus: Game.READY, RevealStatus: Game.REVEAL});
+			this.model.set({GameStatus: Game.READY});
 			this.render();
 			Game.Timer.reset();
 		},
 		
 		changeTheme: function() {
 			this.model.set({Theme: this.$theme.val()});
-			this.model.set({GameStatus: Game.READY, RevealStatus: Game.REVEAL});
+			this.model.set({GameStatus: Game.READY});
 			this.render();
 			Game.Timer.reset();
 		},
@@ -154,6 +155,14 @@ $(function( $ ) {
 					this.dissolveTiles();
 					this.updateClicksCount("minus");
 					this.updatePairsDone();
+					if(this.isGameOver()) {
+						Game.Timer.stop();
+						this.$gameOverLayer.show();
+						this.$tilesContainer.hide();
+						this.model.set({GameStatus: Game.GAMEOVER});
+						this.renderStartButton();
+					}
+
 				}
 				else {
 					this.flipBackTiles();					
@@ -179,6 +188,12 @@ $(function( $ ) {
 
 		flipBackTiles: function() {
 			$(".flip").removeClass("flip");
+		},
+
+		isGameOver: function() {
+			if(this.$panel.not(".dissolve").length > 0)
+				return false;
+			return true;
 		}
 
 	});

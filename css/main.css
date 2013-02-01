@@ -3,7 +3,7 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-body { background-image: url(http://subtlepatterns.com/patterns/ricepaper.png) }
+
 *,
 *:after,
 *:before {
@@ -28,6 +28,116 @@ body { background-image: url(http://subtlepatterns.com/patterns/ricepaper.png) }
 .clearfix {
 	*zoom: 1;
 }
+
+/* common across bittu.github.com */
+
+body {
+	background: url(../images/pattern1.jpg);
+	margin: 0;
+}
+
+a:link, a:visited {
+    color: #0084B4;
+    text-decoration: none;
+}
+
+header h5 {
+	font-size: 12px;
+	margin: 0;
+}
+
+#loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+#main {
+	display: none;
+}
+
+header {
+	width: 100%;
+}
+
+.ics-border-bottom {
+	border-bottom: 1px solid #33B5E5;
+	-webkit-box-shadow: inset 0 0 1px 0 #fff, 0 0 1px 1px rgba(0,0,0,.1);
+	   -moz-box-shadow: inset 0 0 1px 0 #fff, 0 0 1px 1px rgba(0,0,0,.1);
+			box-shadow: inset 0 0 1px 0 #fff, 0 0 1px 1px rgba(0,0,0,.1);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); /* IE6-9 */
+}
+
+.ics-border-top {
+	border-top: 1px solid #33B5E5;
+	/*-webkit-box-shadow: inset 0 -1px 0 1px #fff, 0 -1px 0 1px rgba(0,0,0,.1);
+	   -moz-box-shadow: inset 0 -1px 0 1px #fff, 0 -1px 0 1px rgba(0,0,0,.1);
+			box-shadow: inset 0 -1px 0 1px #fff, 0 -1px 0 1px rgba(0,0,0,.1);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); /* IE6-9 */
+}
+
+header h1 {
+	color: #33B5E5;
+}
+
+header h1:before {
+  content: "./ ";
+  font-size: 24px;
+}
+
+.ics-font-blue {
+	color: #33B5E5;
+}
+
+.ics-font-grey {
+	color: #555555;
+}
+
+.ics-font-black {
+	color: #222222;
+}
+
+.footer {
+	padding: 20px 0 20px 20px;
+	margin-bottom: 0;
+	background-color: whiteSmoke;
+}
+
+.footer p {
+	margin-bottom: 0px;
+}
+
+.footer i{
+	line-height: 20px;
+}
+
+::-webkit-selection,
+::-moz-selection,
+::selection {
+  background-color: #0099cc;
+  color: #fff; }
+
+  .social {
+	font-size: 20px;
+	color: #222;
+	padding: 10px;
+}
+
+.social:hover {
+	color: #33B5E5;
+}
+
+.social-bar {
+	position: absolute;
+	bottom: 1%;
+	right: 2%;
+	top: auto;
+	left: auto;
+}
+
+.game {
+	margin: 100px 0 100px 0;
+}  
 
 /* panel for tiles*/
 	
@@ -128,7 +238,7 @@ body { background-image: url(http://subtlepatterns.com/patterns/ricepaper.png) }
 			-webkit-box-shadow: 0 15px 50px rgba(0,0,0,0.2);
 		}
 		
-		 i {
+		.panel i {
 			font-size: 30px;
 			color: whitesmoke;
 			position: absolute;
@@ -151,16 +261,24 @@ body { background-image: url(http://subtlepatterns.com/patterns/ricepaper.png) }
 	/*margin-left: 50px;
 	margin-right: 110px;*/
 }
-#tilesContainer > div{
-	margin: auto;
+
+
+#tilesContainer {
+	margin: 0 auto;
 }
 
-.tilecontainer {
-	margin: 30px;
-	width: 200px;
+#layerContainer {
+	position: relative;
 }
 
-.icon-facebook {
+#gameOverLayer {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+.panel .icon-facebook {
 	color: #09c;
 }
 
@@ -200,10 +318,10 @@ body { background-image: url(http://subtlepatterns.com/patterns/ricepaper.png) }
 	width: 100%;
 	height: 50px;
 	line-height: 50px;
-	color: #999;
-	font-weight: 500;
+	color: #fff;
+	font-weight: 700;
 	font-size: 14px;
-	background: #fff;
+	background: #9BC7DE;
 	display: block;
 	padding: 0 50px 0 30px;
 	position: relative;
@@ -242,11 +360,11 @@ body { background-image: url(http://subtlepatterns.com/patterns/ricepaper.png) }
 
 .theme ul li span, .level ul li span {
 	width: 100%;
-	background: #fff;
+	background: #9BC7DE;
 	line-height: 50px;
 	padding: 0 15px 0 40px;
 	display: block;
-	color: #bcbcbc;
+	color: #fff;
 	cursor: pointer;
 	font-weight: 500;
 }

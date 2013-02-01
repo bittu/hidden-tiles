@@ -1,11 +1,9 @@
 var Game = Game || {};
 
-Game.READY = "Start";
-Game.RUNNING = "Running";
-Game.STOPPED = "Stopped/Restart";
-Game.GAMEOVER = "GameOver"
-Game.REVEAL = "Reveal";
-Game.REVEALED = "Revealed";
+Game.READY = "Play";
+Game.RUNNING = "Reveal Tiles";
+Game.STOPPED = "Revealed/Re-play";
+Game.GAMEOVER = "Play Again";
 Game.LEVEL1 = 1;
 Game.LEVEL2 = 2;
 Game.LEVEL3 = 3;
@@ -19,6 +17,6 @@ Game.THEMETEXT = "Text";
 
 $(function() {
 	
-	new Game.GameView();
+	setTimeout(function(){new Game.GameView()}, 100);
 
 });

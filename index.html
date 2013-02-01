@@ -6,21 +6,35 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
+        <title>Hidden-Tiles Game</title>
+        <meta name="description" content="Hidden Tiles a memory testing Game">
+        <meta name="author" content="Sandeep Vemula aka bittu">
         <meta name="viewport" content="width=device-width">
+
+        <script type="text/javascript">
+			function getDocHeight() {
+				var D = document;
+				return Math.max(
+					Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
+					Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
+					Math.max(D.body.clientHeight, D.documentElement.clientHeight)
+				);
+			}
+			
+			window.onload = function(){
+				document.getElementById('loading').style.display = "none";
+				document.getElementById('main').style.display = "block";
+			};
+
+		</script>
+
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
 				<link rel="stylesheet" href="css/font-awesome.min.css">
 				<!--[if IE 7]>
 					<link rel="stylesheet" href="css/font-awesome-ie7.min.css">
 				<![endif]-->
-        <style>
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
-        </style>
+   
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script type="text/javascript" src="js/lib/modernizr.custom.63321.js"></script>
@@ -32,28 +46,63 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-
-        <div class="container">
-										
-					<div id="tilesGame" class="row">
-						<div id="tilesContainer" class="span8"></div>
-						<div class="span4">
-							<span id="startDiv"></span><span id="revealDiv"></span><hr /><div id="options"></div>			
+        <div id="loading">
+			<img src="images/octocat-spinner-64.gif">
+		</div>
+		<script type="text/javascript">
+			document.getElementById('loading').style.height = (getDocHeight()-100)+"px";
+		</script>
+		<div id="main">
+	        <header>
+				<div class="well ics-border-bottom">
+					<h1>bittu.github.com</h1>
+					<div class="pull-right">
+						<div class="btn-group">
+							<a href="https://github.com/bittu/repositories" class="btn">
+								<small>Watch</small>
+								<h5>REPOS</h5>
+							</a>
 						</div>
 					</div>
-           
-        </div> <!-- /container -->
+				</div>
+		    </header>
+
+			<div class="container game">
+				<div id="tilesGame" class="row">
+					<div class="span8" id="layerContainer">
+						<div id="tilesContainer"></div>
+						<div id="gameOverLayer" class="hide">GameOver</div>
+					</div>
+					<div class="span4">
+						<span id="startDiv"></span><hr /><div id="options"></div>			
+					</div>
+				</div>
+	        </div>
+	        
+	        <footer>
+				<div class="footer ics-border-top">
+					<p class="pull-left">&copy; Sandeep Vemula <i>aka</i> bittu 2013. </p>
+					<p>&nbsp;&nbsp;Powered By 
+						<a href="https://www.github.com"><i class="icon-github"> </i> Github</a>
+					</p>
+					<div style="position: relative">
+						<div class="social-bar" style="">
+							<a href="https://plus.google.com/u/0/114680945670891585315"><i class="icon-google-plus social"></i></a>
+							<a href="https://www.facebook.com/bittu4u4ever"><i class="icon-facebook social"></i></a>
+							<a href="https://twitter.com/bittu4u4ever"><i class="icon-twitter social"></i></a>
+							<a href="http://www.linkedin.com/profile/view?id=55051662"><i class="icon-linkedin social"></i></a>
+						</div>
+					</div>
+				</div>
+			</footer>
+    	</div>
 
 				<script type="text/html" id="tileTemplate">
 					<div class="panel" data-tile="<%=dataTile%>"><div class="front"></div><div class="back"><i class="<%=dataTile%>"></i></div></div>
 				</script>
 				
 				<script type="text/html" id="startButtonTemplate">
-					<button id="start" <%= (GameStatus !== Game.READY && GameStatus !== Game.STOPPED) ? "disabled class=\"btn disabled btn-large\"" : "class=\"btn btn-large\"" %>><%=GameStatus%></button>
-				</script>
-
-				<script type="text/html" id="revealButtonTemplate">
-					<button id="reveal" <%= (RevealStatus !== Game.REVEAL || GameStatus === Game.READY) ? "disabled class=\"btn disabled btn-large pull-right\"" : "class=\"btn btn-large pull-right\"" %>><%=RevealStatus%></button>
+					<button id="start" class="btn btn-large btn-block"><%=GameStatus%></button>
 				</script>
 
 				<script type="text/html" id="optionsTemplate">
