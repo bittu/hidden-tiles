@@ -10,7 +10,7 @@ $(function( $ ) {
 			ClicksCount: 0,
 			Timer: "00:00:00.00",
 			PairsDone: 0,
-			Level: Game.LEVEL2,
+			Level: Game.LEVEL1,
 			Theme: Game.THEMESOCIAL,
 			GameSizes: {"1" : "4", "2" : "6", "3" : "8", "4" : "10"},
 			ThemeData: {"Social": [
