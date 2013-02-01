@@ -37,8 +37,8 @@
 										
 					<div id="tilesGame" class="row">
 						<div id="tilesContainer" class="span8"></div>
-						<div class="span3 pull-right">
-							<div id="startDiv"></div><br /><div id="revealDiv"></div><hr /><div id="options"></div>			
+						<div class="span4">
+							<span id="startDiv"></span><span id="revealDiv"></span><hr /><div id="options"></div>			
 						</div>
 					</div>
            
@@ -49,42 +49,42 @@
 				</script>
 				
 				<script type="text/html" id="startButtonTemplate">
-					<button id="start" <%= GameStatus !== Game.READY ? "disabled class=\"btn btn-block disabled\"" : "class=\"btn btn-block\"" %>><%=GameStatus%></button>
+					<button id="start" <%= (GameStatus !== Game.READY && GameStatus !== Game.STOPPED) ? "disabled class=\"btn disabled btn-large\"" : "class=\"btn btn-large\"" %>><%=GameStatus%></button>
 				</script>
 
 				<script type="text/html" id="revealButtonTemplate">
-					<button id="reveal" <%= (RevealStatus !== Game.REVEAL || GameStatus === Game.READY) ? "disabled class=\"btn disabled btn-block\"" : "class=\"btn btn-block\"" %>><%=RevealStatus%></button>
+					<button id="reveal" <%= (RevealStatus !== Game.REVEAL || GameStatus === Game.READY) ? "disabled class=\"btn disabled btn-large pull-right\"" : "class=\"btn btn-large pull-right\"" %>><%=RevealStatus%></button>
 				</script>
 
 				<script type="text/html" id="optionsTemplate">
-					
-					<div class="wrapper-dropdown">
+					<div class="inline">
+					<span class="wrapper-dropdown">
 						<span>Tile Clicks: </span><span id="clicks"><%=ClicksCount%></span>
-					</div>
-					<br />
-					<div class="wrapper-dropdown">
+					</span>
+					
+					<span class="wrapper-dropdown">
 						<span>Tile Pairs Done: </span><span id="pairs"><%=PairsDone%></span>
+					</span>
 					</div>
 					<br />
 					<div class="wrapper-dropdown">
 						<span>Timer: </span><span id="timer"><%=Timer%></span>
 					</div>
 					<hr />
-					<div class="wrapper">
-					Change Level: <select id="level" class="cd-dropdown">
-						<option value="1" <%=Level === Game.LEVEL1 ? "selected" : ""%>>Level 1 (4x4)</option>
-						<option value="2" <%=Level === Game.LEVEL2 ? "selected" : ""%>>Level 2 (6x6)</option>
-						<option value="3" <%=Level === Game.LEVEL3 ? "selected" : ""%>>Level 3 (8x8)</option>
-						<option value="4" <%=Level === Game.LEVEL4 ? "selected" : ""%>>Level 4 (10x10)</option>
-					</select>
+					<div class="wrapper pull-left">
+						<select id="level">
+							<option value="1" <%=Level === Game.LEVEL1 ? "selected" : ""%>>Level 1 (4x4)</option>
+							<option value="2" <%=Level === Game.LEVEL2 ? "selected" : ""%>>Level 2 (6x6)</option>
+							<option value="3" <%=Level === Game.LEVEL3 ? "selected" : ""%>>Level 3 (8x8)</option>
+							<option value="4" <%=Level === Game.LEVEL4 ? "selected" : ""%>>Level 4 (10x10)</option>
+						</select>
 					</div>
-					<div class="wrapper">
-					Change Theme: <select id="theme">
-						<option value="-1" selected>Change Theme</option>
-						<option value="<%=Game.THEMESOCIAL%>" <%=Theme === Game.THEMESOCIAL ? "selected" : ""%>>Theme Social</option>
-						<option value="<%=Game.THEMEWEB%>" <%=Theme === Game.THEMEWEB ? "selected" : ""%>>Theme Web</option>
-						<option value="<%=Game.THEMETEXT%>" <%=Theme === Game.THEMETEXT ? "selected" : ""%>>Theme Text</option>
-					</select>
+					<div class="wrapper pull-right">
+						<select id="theme">							
+							<option value="<%=Game.THEMESOCIAL%>" <%=Theme === Game.THEMESOCIAL ? "selected" : ""%>>Theme Social</option>
+							<option value="<%=Game.THEMEWEB%>" <%=Theme === Game.THEMEWEB ? "selected" : ""%>>Theme Web</option>
+							<option value="<%=Game.THEMETEXT%>" <%=Theme === Game.THEMETEXT ? "selected" : ""%>>Theme Text</option>
+						</select>
 					</div>
 				</script>
 				

@@ -20,8 +20,8 @@ $(function( $ ) {
 		events: {
 			'click #start': 'startGame',
 			'click #reveal': 'revealTiles',
-			'change #level': 'changeLevel',
-			'change #theme': 'changeTheme',
+			'change input[name=level]': 'changeLevel',
+			'change input[name=theme]': 'changeTheme',
 			'click .panel': 'flipTile'
 		},
 		
@@ -42,15 +42,21 @@ $(function( $ ) {
 			this.$options.html(this.optionsTemplate(this.model.toJSON()));
 			$( '#level' ).dropdown( {
 					gutter : 5,
-					stack : false,
 					delay : 100,
-					slidingIn : 100
+					random : true,
+					themeClass: "level"
+				} );	
+				$( '#theme' ).dropdown( {
+					gutter : 5,
+					delay : 40,
+					rotated : 'left',
+					themeClass: "theme"
 				} );
 			var level = this.model.get("Level");
 			var size = this.model.get("GameSizes")[level];
 			var containerSize = this.model.get("ContainerSizes")[level];
 			var noOfTiles = size * size;
-			this.$tilesContainer.css({width : containerSize});
+			//this.$tilesContainer.css({width : containerSize});
 			var tilesContainerHTML = "";
 			var theme = this.model.get("Theme");
 			var themeData = this.model.get("ThemeData")[theme];
@@ -66,15 +72,15 @@ $(function( $ ) {
 
 			tilesContainerArray = Game.pickRandom(tilesContainerArray);			
 
-			this.$tilesContainer.html(tilesContainerArray.join(''));
+			this.$tilesContainer.html($("<div/>", {"style": "width:"+containerSize}).html(tilesContainerArray.join('')));
 
 			this.$start = this.$("#start");
 			this.$reveal = this.$("#reveal");
 			this.$clicks = this.$("#clicks");
 			this.$timer = this.$("#timer");
 			this.$pairs = this.$("#pairs");
-			this.$level = this.$("#level");
-			this.$theme = this.$("#theme");
+			this.$level = this.$("input[name=level]");
+			this.$theme = this.$("input[name=theme]");
 			this.$panel = this.$(".panel");
 		},
 
@@ -87,15 +93,26 @@ $(function( $ ) {
 		},
 		
 		startGame: function() {
-			console.log("startGame");
-			this.model.set({GameStatus: Game.RUNNING});
-			this.renderStartButton();
-			this.renderRevealButton();
+			if(this.model.get("GameStatus") === Game.STOPPED) {
+				this.resetGame();
+			}
+			else {
+				this.model.set({GameStatus: Game.RUNNING});
+				this.renderStartButton();
+				this.renderRevealButton();
+			}
+			
+			Game.Timer.reset();
 			Game.Timer.start();
 		},
 		
+		resetGame: function() {
+			this.model.set(this.model.defaults);
+			this.model.set({GameStatus: Game.RUNNING});
+			this.render();
+		},
+		
 		revealTiles: function() {
-			console.log("revealTiles");
 			this.model.set({RevealStatus: Game.REVEALED, GameStatus: Game.STOPPED});
 			this.renderStartButton();
 			this.renderRevealButton();
@@ -104,7 +121,6 @@ $(function( $ ) {
 		},
 		
 		changeLevel: function(event) {
-			console.log("changeLevel");
 			this.model.set({Level: parseInt(this.$level.val())});
 			this.model.set({GameStatus: Game.READY, RevealStatus: Game.REVEAL});
 			this.render();
@@ -112,8 +128,6 @@ $(function( $ ) {
 		},
 		
 		changeTheme: function() {
-			console.log("changeTheme");
-			console.log(this.$theme.val());
 			this.model.set({Theme: this.$theme.val()});
 			this.model.set({GameStatus: Game.READY, RevealStatus: Game.REVEAL});
 			this.render();
@@ -150,13 +164,13 @@ $(function( $ ) {
 		updateClicksCount: function(addOrMinus) {
 			var count = this.model.get("ClicksCount");
 			this.model.set({ClicksCount: (addOrMinus==="add")?count+1:count-1});
-			this.$clicks.val(this.model.get("ClicksCount"));
+			this.$clicks.text(this.model.get("ClicksCount"));
 		},
 
 		updatePairsDone: function() {
 			var count = this.model.get("PairsDone");
 			this.model.set({PairsDone: count+1});
-			this.$pairs.val(this.model.get("PairsDone"));
+			this.$pairs.text(this.model.get("PairsDone"));
 		},
 
 		dissolveTiles: function() {

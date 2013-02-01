@@ -33,6 +33,8 @@
 		rotated : false,
 		// effect to slide in the options. value is the margin to start with
 		slidingIn : false,
+		//theming modification // add class and define your own css // by sandeep
+		themeClass: "cd-dropdown",
 		onOptionSelect : function(opt) { return false; }
 	};
 
@@ -50,7 +52,7 @@
 
 			var self = this;
 			this.minZIndex = 1000;
-			this._transformSelect();
+			var value = this._transformSelect();
 			this.opts = this.listopts.children( 'li' );
 			this.optsCount = this.opts.length;
 			this.size = { width : this.dd.width(), height : this.dd.height() };
@@ -58,7 +60,7 @@
 			var elName = this.$el.attr( 'name' ), elId = this.$el.attr( 'id' ),
 				inputName = elName !== undefined ? elName : elId !== undefined ? elId : 'cd-dropdown-' + ( new Date() ).getTime();
 
-			this.inputEl = $( '<input type="hidden" name="' + inputName + '"></input>' ).insertAfter( this.selectlabel );
+			this.inputEl = $( '<input type="hidden" name="' + inputName + '" value="' + value + '"></input>' ).insertAfter( this.selectlabel );
 			
 			this.selectlabel.css( 'z-index', this.minZIndex + this.optsCount );
 			this._positionOpts();
@@ -69,26 +71,35 @@
 		},
 		_transformSelect : function() {
 
-			var optshtml = '', selectlabel = '';
+			var optshtml = '', selectlabel = '', value = -1;
 			this.$el.children( 'option' ).each( function() {
 
 				var $this = $( this ),
 					val = isNaN( $this.attr( 'value' ) ) ? $this.attr( 'value' ) : Number( $this.attr( 'value' ) ) ,
 					classes = $this.attr( 'class' ),
+					selected = $this.attr( 'selected' ),
 					label = $this.text();
 
-				val !== -1 ?
-					classes !== undefined ?
-						optshtml += '<li data-value="' + val + '"><span class="' + classes + '">' + label + '</span></li>' :
-						optshtml += '<li data-value="' + val + '"><span>' + label + '</span></li>' :
+				if( val !== -1 ) {
+					optshtml += 
+						classes !== undefined ? 
+							'<li data-value="' + val + '"><span class="' + classes + '">' + label + '</span></li>' :
+							'<li data-value="' + val + '"><span>' + label + '</span></li>';
+				}
+
+				if( selected ) {
 					selectlabel = label;
+					value = val;
+				}
 
 			} );
 
 			this.listopts = $( '<ul/>' ).append( optshtml );
 			this.selectlabel = $( '<span/>' ).append( selectlabel );
-			this.dd = $( '<div class="cd-dropdown"/>' ).append( this.selectlabel, this.listopts ).insertAfter( this.$el );
+			this.dd = $( '<div class="' + this.options.themeClass + '"/>' ).append( this.selectlabel, this.listopts ).insertAfter( this.$el );
 			this.$el.remove();
+
+			return value;
 
 		},
 		_positionOpts : function( anim ) {
@@ -123,20 +134,26 @@
 		},
 		_initEvents : function() {
 			
-			var self = this,
-				throwHook = this._throwHook;
+			var self = this;
 			
 			this.selectlabel.on( 'mousedown.dropdown', function( event ) {
 				self.opened ? self.close() : self.open();
 				return false;
 
 			} );
+			
+			$(document).on("click", function(e) { 
+				var $clicked = $(e.target);
+				if (!$clicked.parents().hasClass(self.options.themeClass) && self.opened) {
+						self.close();
+				}
+			});
 
 			this.opts.on( 'click.dropdown', function() {
 				if( self.opened ) {
 					var opt = $( this );
 					self.options.onOptionSelect( opt );
-					self.inputEl.val( opt.data( 'value' ) );
+					self.inputEl.val( opt.data( 'value' ) ).change();
 					self.selectlabel.html( opt.html() );
 					self.close();
 				}

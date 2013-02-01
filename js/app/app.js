@@ -2,7 +2,7 @@ var Game = Game || {};
 
 Game.READY = "Start";
 Game.RUNNING = "Running";
-Game.STOPPED = "Stopped";
+Game.STOPPED = "Stopped/Restart";
 Game.GAMEOVER = "GameOver"
 Game.REVEAL = "Reveal";
 Game.REVEALED = "Revealed";
@@ -21,8 +21,4 @@ $(function() {
 	
 	new Game.GameView();
 
-	$("#theme").dropdown( {
-					gutter : 5
-				} );
-	
 });
