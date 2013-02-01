@@ -1,0 +1,487 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+.clearfix {
+	*zoom: 1;
+}
+
+/* common across bittu.github.com */
+
+body {
+	background: url(../images/pattern1.jpg);
+	margin: 0;
+}
+
+a:link, a:visited {
+    color: #0084B4;
+    text-decoration: none;
+}
+
+header h5 {
+	font-size: 12px;
+	margin: 0;
+}
+
+#loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+#main {
+	display: none;
+}
+
+header {
+	width: 100%;
+}
+
+.ics-border-bottom {
+	border-bottom: 1px solid #33B5E5;
+	-webkit-box-shadow: inset 0 0 1px 0 #fff, 0 0 1px 1px rgba(0,0,0,.1);
+	   -moz-box-shadow: inset 0 0 1px 0 #fff, 0 0 1px 1px rgba(0,0,0,.1);
+			box-shadow: inset 0 0 1px 0 #fff, 0 0 1px 1px rgba(0,0,0,.1);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); /* IE6-9 */
+}
+
+.ics-border-top {
+	border-top: 1px solid #33B5E5;
+	/*-webkit-box-shadow: inset 0 -1px 0 1px #fff, 0 -1px 0 1px rgba(0,0,0,.1);
+	   -moz-box-shadow: inset 0 -1px 0 1px #fff, 0 -1px 0 1px rgba(0,0,0,.1);
+			box-shadow: inset 0 -1px 0 1px #fff, 0 -1px 0 1px rgba(0,0,0,.1);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); /* IE6-9 */
+}
+
+header h1 {
+	color: #33B5E5;
+}
+
+header h1:before {
+  content: "./ ";
+  font-size: 24px;
+}
+
+.ics-font-blue {
+	color: #33B5E5;
+}
+
+.ics-font-grey {
+	color: #555555;
+}
+
+.ics-font-black {
+	color: #222222;
+}
+
+.footer {
+	padding: 20px 0 20px 20px;
+	margin-bottom: 0;
+	background-color: whiteSmoke;
+}
+
+.footer p {
+	margin-bottom: 0px;
+}
+
+.footer i{
+	line-height: 20px;
+}
+
+::-webkit-selection,
+::-moz-selection,
+::selection {
+  background-color: #0099cc;
+  color: #fff; }
+
+  .social {
+	font-size: 20px;
+	color: #222;
+	padding: 10px;
+}
+
+.social:hover {
+	color: #33B5E5;
+}
+
+.social-bar {
+	position: absolute;
+	bottom: 1%;
+	right: 2%;
+	top: auto;
+	left: auto;
+}
+
+.game {
+	margin: 100px 0 100px 0;
+}  
+
+/* panel for tiles*/
+	
+	.panel {
+			float: left;
+			width: 40px;
+			height: 40px;
+			margin: 5px;
+			position: relative;
+			font-size: .8em;
+			
+			-webkit-perspective: 600px;
+			-moz-perspective: 600px;
+		}
+		/* -- make sure to declare a default for every property that you want animated -- */
+		/* -- general styles, including Y axis rotation -- */
+		.panel .front {
+			float: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 900;
+			width: inherit;
+			height: inherit;
+			border: 1px solid #ccc;
+			background: #6b7077;
+			text-align: center;
+
+			-moz-box-shadow: 0 1px 5px rgba(0,0,0,0.9);
+			-webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.9);
+			box-shadow: 0 1px 5px rgba(0,0,0,0.9);
+
+			-webkit-transform: rotateX(0deg) rotateY(0deg);
+			-webkit-transform-style: preserve-3d;
+			-webkit-backface-visibility: hidden;
+
+			-moz-transform: rotateX(0deg) rotateY(0deg);
+			-moz-transform-style: preserve-3d;
+			-moz-backface-visibility: hidden;
+
+			/* -- transition is the magic sauce for animation -- */
+			-o-transition: all .4s ease-in-out;
+			-ms-transition: all .4s ease-in-out;
+			-moz-transition: all .4s ease-in-out;
+			-webkit-transition: all .4s ease-in-out;
+			transition: all .4s ease-in-out;
+		}
+		.panel.flip .front {
+			z-index: 900;
+			border-color: #eee;
+			background: #333;
+
+			-webkit-transform: rotateY(180deg);
+			-moz-transform: rotateY(180deg);
+			
+			-moz-box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+			-webkit-box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+			box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+		}
+		
+		.panel .back {
+			float: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 800;
+			width: inherit;
+			height: inherit;
+			border: 1px solid #ccc;
+			background: #333;
+			text-shadow: 1px  1px 1px rgba(0,0,0,0.6); 
+			
+			-webkit-transform: rotateY(-180deg);
+			-webkit-transform-style: preserve-3d;
+			-webkit-backface-visibility: hidden;
+
+			-moz-transform: rotateY(-180deg);
+			-moz-transform-style: preserve-3d;
+			-moz-backface-visibility: hidden;
+
+			/* -- transition is the magic sauce for animation -- */
+			-o-transition: all .4s ease-in-out;
+			-ms-transition: all .4s ease-in-out;
+			-moz-transition: all .4s ease-in-out;
+			-webkit-transition: all .4s ease-in-out;
+			transition: all .4s ease-in-out;
+		}
+		
+		.panel.flip .back {
+			z-index: 1000;
+			background: #80868d;
+
+			-webkit-transform: rotateX(0deg) rotateY(0deg);
+			-moz-transform: rotateX(0deg) rotateY(0deg);
+
+			box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+			-moz-box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+			-webkit-box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+		}
+		
+		.panel i {
+			font-size: 30px;
+			color: whitesmoke;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -15px 0 0 -6px;
+		}
+		
+		.dissolve {
+			zoom: 1;
+			filter: alpha(opacity=50);
+			opacity: 0;   
+			-webkit-transform: scale(0);
+			-webkit-transition-property: scale,opacity;
+			-webkit-transition-duration: 0.5s;
+			-webkit-transition-timing-function: ease-in;
+		}
+
+#tilesGame {
+	/*margin-left: 50px;
+	margin-right: 110px;*/
+}
+
+
+#tilesContainer {
+	margin: 0 auto;
+}
+
+#layerContainer {
+	position: relative;
+}
+
+#gameOverLayer {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+.panel .icon-facebook {
+	color: #09c;
+}
+
+.wrapper-dropdown {
+	position: relative;
+	width: 200px;
+	padding: 10px;
+	margin: 0 auto;
+	background: #9BC7DE;
+	color: white;
+	outline: none;
+	cursor: default;
+	font-weight: bold;
+}
+
+.wrapper {
+	position: relative;	
+}
+
+.inline {
+	text-align: center;
+}
+
+/* dropdown styles for theme and level drop down */
+
+/* common */
+
+.theme, .level,
+.cd-select {
+	position: relative;
+	width: 180px;
+	margin: 0 auto;
+	display: block;
+}
+
+.theme > span, .level > span {
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 14px;
+	background: #9BC7DE;
+	display: block;
+	padding: 0 50px 0 30px;
+	position: relative;
+	cursor: pointer;
+}
+
+.theme > span:after, .level > span:after {
+	content: '\25BC';
+	position: absolute;
+	right: 0px;
+	top: 13%;
+	width: 50px;
+	text-align: center;
+	font-size: 12px;
+	padding: 10px;
+	height: 70%;
+	line-height: 20px;
+	border-left: 1px solid #ddd;
+}
+
+.theme.cd-active > span:after, .level.cd-active > span:after {
+	content: '\25B2';
+}
+
+.theme ul, .level ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: block;
+	position: relative;
+}
+
+.theme ul li, .level ul li {
+	display: block;
+}
+
+.theme ul li span, .level ul li span {
+	width: 100%;
+	background: #9BC7DE;
+	line-height: 50px;
+	padding: 0 15px 0 40px;
+	display: block;
+	color: #fff;
+	cursor: pointer;
+	font-weight: 500;
+}
+
+.theme > span,
+.theme ul li span,
+.level > span,
+.level ul li span {
+	-webkit-backface-visibility: hidden;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.theme > span span[class^="icon-"],
+.theme > span span[class*=" icon-"],
+.level > span span[class^="icon-"],
+.level > span span[class*=" icon-"]{
+	padding: 0 30px 0 45px;
+}
+
+/* Select fallback styling */
+.cd-select {
+	border: 1px solid #ddd;
+}
+
+/* theme - demo3 */
+
+.theme > span,
+.theme ul li:nth-last-child(-n+3) span {
+	box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.theme ul {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+}
+
+.theme ul li {
+	position: absolute;
+	width: 100%;
+}
+
+.cd-active.theme > span {
+	color: #09c;
+}
+
+.cd-active.theme > span,
+.cd-active.theme ul li span {
+	box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.cd-active.theme ul li {
+	-webkit-transform-origin: -200% 50%;
+	-moz-transform-origin: -200% 50%;
+	-o-transform-origin: -200% 50%;
+	-ms-transform-origin: -200% 50%;
+	transform-origin: -200% 50%;
+}
+
+.cd-active.theme ul li span {
+	-webkit-transition: all 0.2s linear 0s;
+	-moz-transition: all 0.2s linear 0s;
+	-ms-transition: all 0.2s linear 0s;
+	-o-transition: all 0.2s linear 0s;
+	transition: all 0.2s linear 0s;
+}
+
+.cd-active.theme ul li span:hover {
+	background: #09c;
+	color: #fff;
+}
+
+/* level - demo2 */
+
+.level > span,
+.level ul li:nth-last-child(-n+3) span {
+	box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.level ul {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+}
+
+.level ul li {
+	position: absolute;
+	width: 100%;
+}
+
+.cd-active.level > span {
+	color: #4d8c9d;
+}
+
+.cd-active.level > span,
+.cd-active.level ul li span {
+	box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.cd-active.level ul li span {
+	-webkit-transition: all 0.2s linear 0s;
+	-moz-transition: all 0.2s linear 0s;
+	-ms-transition: all 0.2s linear 0s;
+	-o-transition: all 0.2s linear 0s;
+	transition: all 0.2s linear 0s;
+}
+
+.cd-active.level ul li span:hover {
+	background: #4d8c9d;
+	color: #fff;
+}
+
+@media print {
+
+}
