@@ -121,7 +121,7 @@
 					</div>
 					<hr />
 					<div class="wrapper pull-left">
-						<select id="level">
+						<select id="level" name="level">
 							<option value="1" <%=Level === Game.LEVEL1 ? "selected" : ""%>>Level 1 (4x4)</option>
 							<option value="2" <%=Level === Game.LEVEL2 ? "selected" : ""%>>Level 2 (6x6)</option>
 							<option value="3" <%=Level === Game.LEVEL3 ? "selected" : ""%>>Level 3 (8x8)</option>
@@ -129,7 +129,7 @@
 						</select>
 					</div>
 					<div class="wrapper pull-right">
-						<select id="theme">							
+						<select id="theme" name="theme">							
 							<option value="<%=Game.THEMESOCIAL%>" <%=Theme === Game.THEMESOCIAL ? "selected" : ""%>>Theme Social</option>
 							<option value="<%=Game.THEMEWEB%>" <%=Theme === Game.THEMEWEB ? "selected" : ""%>>Theme Web</option>
 							<option value="<%=Game.THEMETEXT%>" <%=Theme === Game.THEMETEXT ? "selected" : ""%>>Theme Text</option>
