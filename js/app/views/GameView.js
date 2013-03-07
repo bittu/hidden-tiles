@@ -40,7 +40,7 @@ $(function( $ ) {
 
 			this.renderStartButton();
 			this.$options.html(this.optionsTemplate(this.model.toJSON()));
-			$( '#level' ).dropdown( {
+			/*$( '#level' ).dropdown( {
 				gutter : 5,
 				delay : 100,
 				random : true,
@@ -51,7 +51,7 @@ $(function( $ ) {
 				delay : 40,
 				rotated : 'left',
 				themeClass: "theme"
-			} );
+			} );*/
 			var level = this.model.get("Level");
 			var size = this.model.get("GameSizes")[level];
 			var containerSize = this.model.get("ContainerSizes")[level];
