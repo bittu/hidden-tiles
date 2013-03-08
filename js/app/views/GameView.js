@@ -17,8 +17,8 @@ $(function( $ ) {
 		
 		events: {
 			'click #start': 'startGame',
-			'change input[name=level]': 'changeLevel',
-			'change input[name=theme]': 'changeTheme',
+			'change [name=level]': 'changeLevel',
+			'change [name=theme]': 'changeTheme',
 			'click .panel': 'flipTile'
 		},
 		
@@ -79,8 +79,8 @@ $(function( $ ) {
 			this.$clicks = this.$("#clicks");
 			this.$timer = this.$("#timer");
 			this.$pairs = this.$("#pairs");
-			this.$level = this.$("input[name=level]");
-			this.$theme = this.$("input[name=theme]");
+			this.$level = this.$("[name=level]");
+			this.$theme = this.$("[name=theme]");
 			this.$panel = this.$(".panel");
 		},
 
